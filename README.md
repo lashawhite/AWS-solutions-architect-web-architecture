@@ -7,6 +7,7 @@ Hands-on AWS Solutions Architect project demonstrating the deployment of a web a
 
 The project was built from the AWS Management Console to practice core networking, compute, security, load-balancing, and troubleshooting concepts relevant to the AWS Solutions Architect Associate certification.
 
+![alt text](aws-web-architecture-diagram.png)
 ## Architecture
 
 The environment includes:
