@@ -23,7 +23,7 @@ The environment includes:
 - Security groups
 - Availability Zones
 
-### Architecture Diagram
+### Architecture Diagram:
 
 ![AWS Web Application Architecture](aws-web-architecture-diagram.png)
 
@@ -142,6 +142,13 @@ Apache HTTP Server
 * AWS infrastructure troubleshooting
 
 ## Project Outcome
+#### Web Server A:
+
+![AWS Web server A](AWS-Web-Server-A-Welcome-Page.png)
+
+#### Web Server B:
+
+![AWS Web server B](AWS-Web-Server-B-Welcome-Page.png)
 
 Successfully deployed and tested an AWS web application architecture using Amazon VPC, EC2, an internet-facing Application Load Balancer, target groups, security groups, and multi-AZ networking.
 
