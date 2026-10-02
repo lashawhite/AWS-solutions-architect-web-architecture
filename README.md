@@ -67,6 +67,7 @@ manages EC2 capacity
 - **Application Load Balancer** — Distributes HTTP traffic to registered targets
 - **Target Group** — Registers targets and performs health checks
 - **Security Groups** — Control inbound and outbound network traffic
+- **Amazon EC2 Auto Scaling** — Automatically manages EC2 instance capacity
 
 # Implementation
 
@@ -90,9 +91,9 @@ The web server hosts a custom HTML page created for this project.
 
 ##### 3. Security Groups
 
-Configured separate security groups for the Application Load Balancer and web server.
+Configured separate security groups for the Application Load Balancer and web servers.
 
-The web server security group allows HTTP traffic from the Application Load Balancer security group rather than allowing unrestricted internet access directly to the instance.
+The security groups were configured to control HTTP and SSH access to the AWS resources.
 
 ##### 4. Application Load Balancer
 
@@ -112,9 +113,9 @@ Created the target group:
 
 SAA-Web-TG
 
-The EC2 web server was registered on port 80.
+The EC2 web servers were registered on port 80.
 
-The target successfully passed the ALB health check and was reported as Healthy.
+The registered targets successfully passed the ALB health checks and were reported as Healthy.
 
 ##### 6. EC2 Auto Scaling
 
@@ -169,6 +170,8 @@ Apache HTTP Server
 * Multi-AZ load balancer configuration
 * HTTP traffic routing
 * AWS infrastructure troubleshooting
+* EC2 Auto Scaling
+* Launch templates
 
 ## Project Outcome
 #### Web Server A:
