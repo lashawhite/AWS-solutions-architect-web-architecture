@@ -17,11 +17,13 @@ The environment includes:
 - Internet Gateway
 - Route tables
 - Amazon EC2
+- Amazon EC2 Auto Scaling
 - Apache HTTP Server
 - Application Load Balancer
 - ALB target group
 - Security groups
 - Availability Zones
+
 
 ### Architecture Diagram:
 
@@ -36,13 +38,20 @@ Internet
 Application Load Balancer
    |
    v
-ALB Target Group
+SAA-Web-TG
    |
-   v
-Amazon EC2 Web Server
-   |
-   v
-Apache HTTP Server
+   +-------------------+
+   |                   |
+   v                   v
+EC2 Web Server A    EC2 Web Server B
+us-east-2a          us-east-2b
+   |                   |
+   +------ Apache -----+
+
+        ^
+        |
+SAA-Web-ASG
+manages EC2 capacity
 ```
 
 # AWS Services Used
@@ -107,26 +116,46 @@ The EC2 web server was registered on port 80.
 
 The target successfully passed the ALB health check and was reported as Healthy.
 
+##### 6. EC2 Auto Scaling
+
+Created an Amazon EC2 Auto Scaling Group:
+
+- Auto Scaling Group: `SAA-Web-ASG`
+- Launch Template: `SAA-Web-Launch-Template`
+- Minimum capacity: 2
+- Desired capacity: 2
+- Maximum capacity: 4
+- Availability Zones: `us-east-2a`, `us-east-2b`
+
+The Auto Scaling Group was integrated with the `SAA-Web-TG` target group and successfully launched and maintained EC2 instances across multiple Availability Zones.
+
 # Testing
 
 The Application Load Balancer DNS name was tested from a web browser.
 
-The request successfully reached the EC2 instance through the Application Load Balancer and returned the custom web page:
+The ALB successfully routed HTTP traffic to the registered EC2 instances through the `SAA-Web-TG` target group.
 
-"Welcome to My AWS Web Server"
+The target group successfully reported healthy EC2 targets across:
 
-##### This confirmed connectivity between:
+- `us-east-2a`
+- `us-east-2b`
+
+The web servers returned their custom HTML pages, confirming connectivity through the Application Load Balancer.
+
+##### Validated Architecture
+
 ```text
 Internet
    ↓
 Application Load Balancer
    ↓
-Target Group
+SAA-Web-TG
    ↓
-EC2
+EC2 Web Servers
    ↓
 Apache HTTP Server
 ```
+
 # Key Architecture Concepts Demonstrated:
 
 * VPC networking
@@ -150,8 +179,16 @@ Apache HTTP Server
 
 ![AWS Web server B](AWS-Web-Server-B-Welcome-Page.png)
 
-Successfully deployed and tested an AWS web application architecture using Amazon VPC, EC2, an internet-facing Application Load Balancer, target groups, security groups, and multi-AZ networking.
+Successfully deployed and tested an AWS multi-AZ web application architecture using:
 
-The Application Load Balancer successfully routed HTTP traffic to the registered EC2 web server, which returned the custom web application page.
+- Amazon VPC
+- Amazon EC2
+- Amazon EC2 Auto Scaling
+- Application Load Balancer
+- Target Groups
+- Security Groups
+- Apache HTTP Server
 
-This project provided hands-on experience with AWS networking, load balancing, security group configuration, EC2 administration, health checks, and infrastructure troubleshooting.
+The Application Load Balancer successfully distributed HTTP traffic to healthy EC2 web servers across multiple Availability Zones.
+
+The project also provided hands-on experience with Auto Scaling, load balancing, health checks, VPC networking, security groups, EC2 administration, and AWS infrastructure troubleshooting.
