@@ -79,6 +79,8 @@ Created an Amazon VPC with CIDR block:
 
 Configured public and private subnet resources across multiple Availability Zones.
 
+![VPC](VPC.png)
+
 ##### 2. EC2 Web Server
 
 Deployed an Amazon EC2 instance running:
@@ -87,6 +89,8 @@ Amazon Linux 2023
 Apache HTTP Server
 HTTP traffic on port 80
 
+![EC2_instance](EC2_Instance_2.png)
+
 The web server hosts a custom HTML page created for this project.
 
 ##### 3. Security Groups
@@ -94,6 +98,8 @@ The web server hosts a custom HTML page created for this project.
 Configured separate security groups for the Application Load Balancer and web servers.
 
 The security groups were configured to control HTTP and SSH access to the AWS resources.
+
+![Security_group](security_group_3.png)
 
 ##### 4. Application Load Balancer
 
@@ -107,6 +113,8 @@ Target group forwarding
 EC2 instance registration
 Health checks
 
+![ALB](Application_load_balancer.png)
+
 ##### 5. Target Group
 
 Created the target group:
@@ -116,6 +124,9 @@ SAA-Web-TG
 The EC2 web servers were registered on port 80.
 
 The registered targets successfully passed the ALB health checks and were reported as Healthy.
+
+![Target_group](target-group-healthy.png)
+
 
 ##### 6. EC2 Auto Scaling
 
@@ -129,6 +140,8 @@ Created an Amazon EC2 Auto Scaling Group:
 - Availability Zones: `us-east-2a`, `us-east-2b`
 
 The Auto Scaling Group was integrated with the `SAA-Web-TG` target group and successfully launched and maintained EC2 instances across multiple Availability Zones.
+
+![ASG](Auto_scaling_group.png)
 
 # Testing
 
